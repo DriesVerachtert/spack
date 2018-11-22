@@ -1,0 +1,423 @@
+modules:
+
+  'enable:':
+    - tcl
+    - lmod
+
+  'prefix_inspections:':
+    bin:
+      - PATH
+    bin64:
+      - PATH
+    share/man:
+      - MANPATH
+    man:
+      - MANPATH
+    lib:
+      - LD_LIBRARY_PATH
+    lib64:
+      - LD_LIBRARY_PATH
+    lib/pkgconfig:
+      - PKG_CONFIG_PATH
+    lib64/pkgconfig:
+      - PKG_CONFIG_PATH
+    '':
+      - CMAKE_PREFIX_PATH
+
+  tcl:
+    hash_length: 0
+    whitelist:
+      - intel
+    blacklist:
+      - '%gcc'
+      - '%intel'
+    naming_scheme: '${PACKAGE}/${VERSION}'
+    intel:
+      filter:
+        environment_blacklist:
+          - LD_LIBRARY_PATH
+          - CPATH
+          - LIBRARY_PATH
+          - CLASSPATH
+          - PS1
+      environment:
+        set:
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+        prepend_path:
+          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
+
+  lmod:
+    hash_length: 0
+
+    core_compilers:
+      - 'gcc@4.8.5'
+
+    hierarchy:
+      - mpi
+      - lapack
+
+    whitelist: [
+      'adf',
+      'ansys',
+      'autoconf%gcc@4.8.5',
+      'automake%gcc@4.8.5',
+      'beast',
+      'caffe',
+      'cfdplusplus',
+      'cmake%gcc@4.8.5',
+      'comsol',
+      'cuda',
+      'cudnn',
+      'curl%gcc@4.8.5',
+      'fdtd',
+      'fio',
+      'gaussian',
+      'gcc',
+      'git',
+      'gnuplot',
+      'hadoop',
+      'intel',
+      'jdk',
+      'libtool%gcc@4.8.5',
+      'likwid',
+      'llvm',
+      'm4%gcc@4.8.5',
+      'maple',
+      'mathematica',
+      'matlab',
+      'mercurial',
+      'molden',
+      'openblas',
+      'picard',
+      'sbt',
+      'scala',
+      'sicer',
+      'smr',
+      'spark',
+      'sra-toolkit',
+      'tar%gcc@4.8.5',
+      'tensorflow',
+      'tmux',
+      'totalview',
+    ]
+
+    blacklist: [
+      '%gcc@4.8.5',
+      'atk',
+      'autoconf',
+      'automake',
+      'boost~mpi',
+      'cairo',
+      'cmake',
+      'curl',
+      'flex',
+      'freetype',
+      'gdk-pixbuf',
+      'gettext',
+      'ghostscript',
+      'ghostscript-fonts',
+      'glib',
+      'gobject-introspection',
+      'graphviz',
+      'gtkplus',
+      'harfbuzz',
+      'help2man',
+      'i7z',
+      'inputproto',
+      'jasper',
+      'jellyfish',
+      'kbproto',
+      'libgcrypt',
+      'libgpg-error',
+      'libice',
+      'libiconv',
+      'libpthread-stubs',
+      'libsm',
+      'libtool',
+      'libx11',
+      'libxau',
+      'libxcb',
+      'libxdmcp',
+      'libxinerama',
+      'libxml2',
+      'libxslt',
+      'libxxf86vm',
+      'm4',
+      'metis~real64',
+      'openssl',
+      'pango',
+      'pkg-config',
+      'plplot',
+      'proj',
+      'pslib',
+      'py-appdirs',
+      'py-ase',
+      'py-bottleneck',
+      'py-certifi',
+      'py-cycler',
+      'py-cython',
+      'py-dateutil',
+      'py-docopt',
+      'py-docutils',
+      'py-enum34',
+      'py-funcsigs',
+      'py-functools32',
+      'py-h5py',
+      'py-hgapi',
+      'py-hypothesis',
+      'py-joblib',
+      'py-matplotlib',
+      'py-mock',
+      'py-mpi4py',
+      'py-mpmath',
+      'py-natsort',
+      'py-nose',
+      'py-numexpr',
+      'py-numpy',
+      'py-packaging',
+      'py-pandas',
+      'py-pathlib',
+      'py-pbr',
+      'py-pillow',
+      'py-pip',
+      'py-pkgconfig',
+      'py-ply',
+      'py-psycopg2',
+      'py-py',
+      'py-pyfaidx',
+      'py-pygments',
+      'py-pyparsing',
+      'py-pytest',
+      'py-pytz',
+      'py-qutip',
+      'py-scikit-learn',
+      'py-scipy',
+      'py-setuptools',
+      'py-six',
+      'py-subprocess32',
+      'py-sympy',
+      'py-theano',
+      'py-typing',
+      'py-virtualenv',
+      'py-xarray',
+      'python~tk',
+      'readline',
+      'shared-mime-info',
+      'suite-sparse ^metis~real64',
+      'tar',
+      'tcl',
+      'texinfo',
+      'tk',
+      'util-macros',
+      'xcb-proto',
+      'xextproto',
+      'xf86vidmodeproto',
+      'xineramaproto',
+      'xproto',
+      'xtrans'
+    ]
+
+    all:
+      suffixes:
+        +mpi: mpi
+        +openmp: openmp
+        'threads=openmp': openmp
+        '^fftw+openmp': openmp
+        +plumed: plumed
+        '^cuda': cuda
+      environment:
+        set:
+          '${PACKAGE}_ROOT': '${PREFIX}'
+
+    ####
+    # Compilers
+    ####
+
+    gcc:
+      environment:
+        set:
+         CC: gcc
+         CXX: g++
+         FC: gfortran
+         F90: gfortran
+         F77: gfortran
+
+    llvm:
+      environment:
+        set:
+          CC: clang
+          CXX: clang++
+
+    intel:
+      filter:
+        environment_blacklist:
+          - LD_LIBRARY_PATH
+          - CPATH
+          - LIBRARY_PATH
+          - CLASSPATH
+          - PS1
+      environment:
+        set:
+          CC: icc
+          CXX: icpc
+          FC: ifort
+          F90: ifort
+          F77: ifort
+          AMPLXE_ROOT: /ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64
+          ICCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          ICPCCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+          IFORTCFG: /ssoft/spack/external/intel/config/2018.2/compilers_and_libraries_2018.2.199/icl.cfg
+        prepend_path:
+          PATH: '/ssoft/spack/external/intel/2018.2/vtune_amplifier_2018.2.0.551022/bin64'
+          INTEL_LICENSE_FILE: /ssoft/spack/external/intel/License
+    ####
+    # MPI
+    ####
+
+    openmpi:
+      # TODO: does this need to be differentiated by architectures?
+      environment:
+        set:
+          SLURM_MPI_TYPE: pmi2
+          OMPI_MCA_btl_openib_warn_default_gid_prefix: '0'
+
+    intel-mpi: # Default for Intel MPI
+      environment:
+        set:
+          I_MPI_ROOT: '${PREFIX}'
+          I_MPI_FABRICS: 'shm:tmi'
+          IPATH_NO_CPUAFFINITY: '1'
+          I_MPI_PMI_LIBRARY: /usr/lib64/libpmi.so
+          I_MPI_EXTRA_FILESYSTEM: '1'
+          I_MPI_EXTRA_FILESYSTEM_LIST: gpfs
+          MPICC: mpiicc
+          MPICXX: mpiicpc
+          MPIF90: mpiifort
+          MPIF77: mpiifort
+          MPIFC: mpiifort
+
+    'intel-mpi target=x86_E5v2_Mellanox_GPU':
+      environment:
+        set:
+          I_MPI_FABRICS: 'shm:ofa'
+
+    'intel-mpi target=x86_E5v4_Mellanox':
+      environment:
+        set:
+          I_MPI_FABRICS:: 'shm:ofa'
+
+    'intel-mpi target=x86_S6g1_Mellanox':
+      environment:
+        set:
+          I_MPI_FABRICS:: 'shm:ofa'
+
+    'mvapich2 target=x86_E5v4_Mellanox':
+      environment:
+        set:
+          MV2_ON_DEMAND_THRESHOLD: '1'
+
+    'mvapich2 target=x86_S6g1_Mellanox':
+      environment:
+        set:
+          MV2_ON_DEMAND_THRESHOLD: '1'
+          MV2_IBA_HCA: mlx5_0
+
+    ####
+    # LAPACK
+    ####
+
+    intel-mkl:
+      environment:
+        set:
+          MKLROOT: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl
+          CMAKE_LIBRARY_PATH: /ssoft/spack/external/intel/2018.2/compilers_and_libraries_2018.2.199/linux/mkl/lib/intel64
+
+    'openblas threads=none':
+      environment:
+        set:
+          'OPENBLAS_NUM_THREADS': '1'
+
+    ####
+    # Other software
+    ####
+
+    quantum-espresso:
+      suffixes:
+        +hdf5: hdf5
+
+    'amber@16':
+      environment:
+        set:
+          'AMBERHOME': '${PREFIX}/amber16'
+        prepend_path:
+          'PATH': '${PREFIX}/amber16/bin'
+          'LD_LIBRARY_PATH': '${PREFIX}/amber16/lib'
+
+    comsol:
+      environment:
+        prepend_path:
+          MATLABPATH: '${PREFIX}/mli'
+
+    cuda:
+      environment:
+        set:
+          CUDA_LIBRARY: '${PREFIX}/lib64'
+          CUDA_INCLUDE: '${PREFIX}/include'
+
+    'hdf5~mpi+cxx':
+      environment:
+        set:
+          HDF5_CC: h5cc
+          HDF5_CXX: 'h5c++'
+          HDF5_FC: h5fc
+
+    'hdf5+mpi~cxx':
+      environment:
+        set:
+          HDF5_CC: h5pcc
+          HDF5_FC: h5pfc
+
+    plumed:
+      environment:
+        set:
+          PLUMED_KERNEL: '${PREFIX}/lib/libplumedKernel.so'
+        unset:
+          - PLUMED_ROOT
+    molpro:
+      template: 'modules/group_restricted.lua'
+      environment:
+        prepend_path:
+          'PATH': '${PREFIX}/molprop_2015_1_linux_x86_64_i8/bin'
+
+    opencv:
+      environment:
+        prepend_path:
+          PYTHONPATH: '${PREFIX}/lib/python2.7/site-packages'
+
+    scala:
+      autoload: 'direct'
+
+    spark:
+      autoload: 'direct'
+      environment:
+        prepend_path:
+          PATH: '/ssoft/spack/scripts/all/spark'
+
+    gaussian:
+      template: 'modules/group_restricted.lua'
+
+    adf:
+      template: 'modules/group_restricted.lua'
+      load:
+      - 'intel'
+      - 'intel-mpi'
+
+    fdtd:
+      environment:
+        prepend_path:
+          PATH: '${PREFIX}/mpich2/nemesis/bin'
+          LD_LIBRARY_PATH: '${PREFIX}/mpich2/nemesis/lib'
+        set:
+          SLURM_MPI_TYPE: pmi2

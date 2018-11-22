@@ -25,7 +25,7 @@ packages:
       - cmake@3.12.2
       - environment-modules@3.2.10
       - flex@2.6.3
-      - gdbm@1.14.1
+      # - gdbm@1.14.1
       - gettext@0.19.8.1
       - git@2.18.0
       - gmp@6.1.2
@@ -35,13 +35,13 @@ packages:
       - libx11@1.6.5
       - m4@1.4.18
       - mpc@1.1.0
-      - node-js@6.12.2
-      - npm@3.10.9
+      # - node-js@6.12.2
+      # - npm@3.10.9
       - pkg-config@0.29.2
-      - swig@3.0.12
-      - tcl@8.6.8
-      - texinfo@6.5
-      - tk@8.6.8
+      # - swig@3.0.12
+      # - tcl@8.6.8
+      # - texinfo@6.5
+      # - tk@8.6.8
       - util-macros@1.19.1
       - valgrind~mpi@3.13.0
 

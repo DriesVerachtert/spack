@@ -49,18 +49,18 @@ packages:
       - py-gcovr
       - py-h5py~mpi
       - py-hdfs
-      - py-ipykernel
-      - py-ipyparallel
-      - py-ipython
-      - py-ipython-genutils
-      - py-ipywidgets
-      - py-ipython
+      # - py-ipykernel
+      # - py-ipyparallel
+      # - py-ipython
+      # - py-ipython-genutils
+      # - py-ipywidgets
+      # - py-ipython
       - py-jinja2
       - py-jprops
-      - py-jupyter-client
-      - py-jupyter-console
-      - py-jupyter-core
-      - py-jupyter-notebook
+      # - py-jupyter-client
+      # - py-jupyter-console
+      # - py-jupyter-core
+      # - py-jupyter-notebook
       - py-lazy-property
       - py-line-profiler
       - py-lxml
@@ -123,9 +123,9 @@ packages:
     - py-numpy@1.15.1
     - py-scipy@1.1.0 ^py-numpy@1.15.1
     - py-matplotlib@2.2.3 ^py-numpy@1.15.1
-    - py-scikit-learn@0.19.1 ^py-numpy@1.15.1 ^py-scipy@1.1.0
-    - py-theano@1.0.2 ^py-numpy@1.15.1 ^py-scipy@1.1.0
-    - py-pytorch@0.4.0 ^py-numpy@1.15.1
+    # - py-scikit-learn@0.19.1 ^py-numpy@1.15.1 ^py-scipy@1.1.0
+    # - py-theano@1.0.2 ^py-numpy@1.15.1 ^py-scipy@1.1.0
+    # - py-pytorch@0.4.0 ^py-numpy@1.15.1
 
   gnu-stable-parallel-python:
     target_matrix:

@@ -39,7 +39,7 @@ class Neurodamus(NeurodamusBase):
     variant('python', default=False, description="Enable Python Neurodamus")
 
     depends_on("boost", when="+syntool")
-    depends_on("hdf5")
+    depends_on("hdf5+mpi")
     depends_on("mpi")
     depends_on("neuron")
     depends_on('reportinglib')

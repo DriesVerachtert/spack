@@ -183,6 +183,9 @@ install_specs() {
 
     copy_configuration "${what}"
 
+    # This directory may fail intel builds, pre-emptively remove it.
+    rm -rf "${HOME}/intel/.pset"
+
     log "sourcing spack environment"
     . ${DEPLOYMENT_ROOT}/deploy/spack/share/spack/setup-env.sh
     env &> "${HOME}/spack.env"
@@ -195,6 +198,9 @@ install_specs() {
 
     if [[ -z "${spec_list}" ]]; then
         log "...found no new packages"
+
+        mkdir -p "${WORKSPACE:-.}/stacks"
+        cp "resources/success.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
     else
         log "found the following specs"
         echo "${spec_list}"
@@ -202,7 +208,9 @@ install_specs() {
         spack spec -Il ${spec_list}
         log "...installing specs"
         spack install -y --log-format=junit --log-file="${HOME}/stack.xml" ${spec_list}
-        cp "${HOME}/stack.xml" "${what}.xml"
+
+        mkdir -p "${WORKSPACE:-.}/stacks"
+        cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
     fi
 
     spack module tcl refresh --delete-tree -y
@@ -213,7 +221,7 @@ install_specs() {
         cp configs/packages.yaml ${HOME}/packages.yaml
         if [[ -n "${spec_list}" ]]; then
             log "adding compilers"
-            configure_compilers <<< "${spec_list}"
+            configure_compilers < "${HOME}/specs.txt"
         fi
     fi
 

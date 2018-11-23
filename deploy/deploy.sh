@@ -209,6 +209,12 @@ install_specs() {
         log "...installing specs"
         spack install -y --log-format=junit --log-file="${HOME}/stack.xml" ${spec_list}
 
+        while read spec; do
+            if [[ "${spec}" == py-* ]]; then
+                spack activate $spec
+            fi
+        done <<< ${spec_list}
+
         mkdir -p "${WORKSPACE:-.}/stacks"
         cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
     fi

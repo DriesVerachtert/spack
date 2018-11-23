@@ -89,7 +89,7 @@ packages:
   gnu-intel-stable-python-parallel:
     target_matrix:
       - gnu-stable
-      - intel-stable
+      # - intel-stable
     requires:
       - architecture
       - compiler

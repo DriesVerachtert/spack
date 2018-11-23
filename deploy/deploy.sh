@@ -197,28 +197,24 @@ install_specs() {
     log "gathering specs"
     spec_list=$(spack filter --not-installed $(< ${HOME}/specs.txt))
 
-    if [[ -z "${spec_list}" ]]; then
-        log "...found no new packages"
-
-        mkdir -p "${WORKSPACE:-.}/stacks"
-        cp "resources/success.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
-    else
-        log "found the following specs"
+    if [[ "${spec_list}" == *[[:space:]]* ]]; then
+        log "found the following uninstalled specs"
         echo "${spec_list}"
         log "...checking specs"
         spack spec -Il ${spec_list}
-        log "...installing specs"
-        spack install -y --log-format=junit --log-file="${HOME}/stack.xml" ${spec_list}
-
-        while read spec; do
-            if [[ "${spec}" == py-* ]]; then
-                spack activate $spec
-            fi
-        done <<< ${spec_list}
-
-        mkdir -p "${WORKSPACE:-.}/stacks"
-        cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
     fi
+
+    log "running installation for all specs"
+    spack install -y --log-format=junit --log-file="${HOME}/stack.xml" $(< "${HOME}/specs.txt")
+
+    while read spec; do
+        if [[ "${spec}" == py-* ]]; then
+            spack activate $spec
+        fi
+    done <<< ${spec_list}
+
+    mkdir -p "${WORKSPACE:-.}/stacks"
+    cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
 
     spack module tcl refresh -y
     . ${DEPLOYMENT_ROOT}/deploy/spack/share/spack/setup-env.sh

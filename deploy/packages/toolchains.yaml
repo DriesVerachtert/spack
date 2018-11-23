@@ -17,7 +17,7 @@ gnu-stable:
   mpi:
   - hpe-mpi@2.16
   lapack:
-  - openblas@0.3.3
+  - intel-mkl@2018.1.163
   python:
   - python@3.6.5
 

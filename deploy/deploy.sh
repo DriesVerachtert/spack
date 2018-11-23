@@ -179,7 +179,8 @@ install_specs() {
     location="$(install_dir ${what})"
     HOME="${location}/data"
     SOFTS_DIR_PATH="${location}"
-    export HOME SOFTS_DIR_PATH
+    MODS_DIR_PATH="${location}/modules"
+    export HOME SOFTS_DIR_PATH MODS_DIR_PATH
 
     copy_configuration "${what}"
 
@@ -219,7 +220,7 @@ install_specs() {
         cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"
     fi
 
-    spack module tcl refresh --delete-tree -y
+    spack module tcl refresh -y
     . ${DEPLOYMENT_ROOT}/deploy/spack/share/spack/setup-env.sh
     spack export --scope=user --explicit > "${HOME}/packages.yaml"
 

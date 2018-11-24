@@ -43,7 +43,7 @@ packages:
       - mpi
       - python
     specs:
-      - parquet-converters@0.2
+      - parquet-converters@0.2.1
 
   #### sub-cellular ####
 

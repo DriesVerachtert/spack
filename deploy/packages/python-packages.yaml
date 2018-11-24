@@ -48,12 +48,12 @@ packages:
       - py-gcovr
       - py-h5py~mpi
       - py-hdfs
-      # - py-ipykernel
-      # - py-ipyparallel
-      # - py-ipython
-      # - py-ipython-genutils
-      # - py-ipywidgets
-      # - py-ipython
+      - py-ipykernel
+      - py-ipyparallel
+      - py-ipython
+      - py-ipython-genutils
+      - py-ipywidgets
+      - py-ipython
       - py-jinja2
       - py-jprops
       # - py-jupyter-client

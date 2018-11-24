@@ -64,12 +64,8 @@ class PyFlake8(PythonPackage):
     # mccabe >= 0.2.1, < 0.5
     depends_on('py-mccabe@0.2.1:0.4.0', when='@2.5.4', type=('build', 'run'))
 
-    # These dependencies breaks concretization
-    # See https://github.com/spack/spack/issues/2793
-    # depends_on('py-configparser', when='^python@:3.3', type=('build', 'run'))
-    # depends_on('py-enum34', when='^python@:3.1', type=('build', 'run'))
-    depends_on('py-configparser', type=('build', 'run'))
-    depends_on('py-enum34', type=('build', 'run'))
+    depends_on('py-configparser', when='^python@:3.3', type=('build', 'run'))
+    depends_on('py-enum34', when='^python@:3.1', type=('build', 'run'))
 
     depends_on('py-nose', type='test')
 

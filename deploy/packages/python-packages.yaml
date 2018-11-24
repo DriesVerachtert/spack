@@ -30,7 +30,6 @@ packages:
       - py-clustershell
       - py-coverage
       - py-cpuinfo
-      - py-csvkit
       - py-cycler
       - py-cython
       - py-cpuinfo

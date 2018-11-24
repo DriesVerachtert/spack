@@ -71,18 +71,18 @@ packages:
   #  specs:
   #    - zee@develop
 
-  # gnu-stable-lapack-python:
-  #   target_matrix:
-  #     - gnu-stable
-  #   requires:
-  #     - architecture
-  #     - compiler
-  #     - lapack
-  #     - python
-  #   specs:
-  #     - py-bluepymm@0.6.38 ^neuron~mpi
-  #     - py-bluepyopt@1.6.56 ^neuron~mpi
-  #     - py-efel@3.0.22
+  gnu-stable-lapack-python:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+      - lapack
+      - python
+    specs:
+      - py-bluepymm@0.6.38 ^neuron~mpi
+      - py-bluepyopt@1.6.56 ^neuron~mpi
+      - py-efel@3.0.22
 
   #### cellular ####
 

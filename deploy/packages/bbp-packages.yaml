@@ -47,29 +47,29 @@ packages:
 
   #### sub-cellular ####
 
-  #gnu-stable-lapack-python-parallel:
-  #  target_matrix:
-  #    - gnu-stable
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - lapack
-  #    - mpi
-  #    - python
-  #  specs:
-  #    - steps@3.3.0+petsc
+  gnu-stable-lapack-python-parallel:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+      - lapack
+      - mpi
+      - python
+    specs:
+      - steps@3.3.0+petsc
 
-  #gnu-stable-lapack-parallel:
-  #  target_matrix:
-  #    - gnu-stable
-  #  requires:
-  #    - architecture
-  #    - compiler
-  #    - mpi
-  #    #- lapack
-  #    #- python
-  #  specs:
-  #    - zee@develop
+  gnu-stable-lapack-parallel:
+    target_matrix:
+      - gnu-stable
+    requires:
+      - architecture
+      - compiler
+      - mpi
+      #- lapack
+      #- python
+    specs:
+      - zee@develop
 
   gnu-stable-lapack-python:
     target_matrix:

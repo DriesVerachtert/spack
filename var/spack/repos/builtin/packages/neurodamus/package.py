@@ -41,7 +41,7 @@ class Neurodamus(NeurodamusBase):
     depends_on("boost", when="+syntool")
     depends_on("hdf5+mpi")
     depends_on("mpi")
-    depends_on("neuron")
+    depends_on("neuron+mpi")
     depends_on('reportinglib')
     depends_on("zlib")
 
@@ -70,6 +70,10 @@ class Neurodamus(NeurodamusBase):
     conflicts('@hippocampus', when='+coreneuron')
     conflicts('@master', when='+coreneuron')
     conflicts('^neuron~python', when='+coreneuron')
+
+    # Note : to support neuron as external package where readline is not brought
+    # with correct library path
+    depends_on('readline')
 
     phases = ['build', 'install']
 

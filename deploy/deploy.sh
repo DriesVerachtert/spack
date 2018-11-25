@@ -70,7 +70,7 @@ configure_compilers() {
 
             #configure pgi network license
             template=$(find $PGI_DIR -name localrc* | tail -n 1)
-            for node in bbpv1 bbpv2 r2i3n0 r2i3n1 r2i3n2 r2i3n3 r2i3n4 r2i3n5 r2i3n6; do
+            for node in bbpv1 bbpv2 bbptadm tds03 tds04 r2i3n0 r2i3n1 r2i3n2 r2i3n3 r2i3n4 r2i3n5 r2i3n6; do
                 cp $template $PGI_DIR/localrc.$node || true
             done
         fi

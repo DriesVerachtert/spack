@@ -28,7 +28,7 @@ packages:
       - highfive~mpi@1.6
       - hpe-mpi@2.16
       # - intel-mpi@2018.1.163
-      - intel-mkl@2018.1.163
+      - intel-mkl@2018.3.222
       - jdk@1.8.0_191-b12
       - libjpeg@1.2.90
       - libxml2@2.9.8

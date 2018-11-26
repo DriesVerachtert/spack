@@ -246,9 +246,9 @@ install_specs() {
     if [[ "${what}" = "serial-libraries" ]]; then
         while read spec; do
             if [[ "${spec}" = py-* ]]; then
-                spack activate $spec
+                spack activate $spec || true
             fi
-        done <<< "${spec_list}"
+        done < "${HOME}/specs.txt"
     fi
 
     mkdir -p "${WORKSPACE:-.}/stacks"
@@ -274,10 +274,16 @@ usage() {
     exit 1
 }
 
+do_archive=default
 do_generate=default
 do_install=default
-while getopts "gi" arg; do
+while getopts "agi" arg; do
     case "${arg}" in
+        a)
+            do_archive=yes
+            [[ ${do_install} = "default" ]] && do_install=no
+            [[ ${do_generate} = "default" ]] && do_generate=no
+            ;;
         g)
             do_generate=yes
             [[ ${do_install} = "default" ]] && do_install=no
@@ -315,6 +321,10 @@ for what in "$@"; do
 done
 
 unset $(set +x; env | awk -F= '/^(PMI|SLURM)_/ {print $1}' | xargs)
+
+if [[ "${do_archive}" = "yes" ]]; then
+    echo BAS
+fi
 
 [[ ${do_generate} != "no" ]] && generate_specs "$@"
 for what in ${stages}; do

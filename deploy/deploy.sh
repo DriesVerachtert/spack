@@ -55,7 +55,11 @@ install_dir() {
     what=$1
     date="${DEPLOYMENT_DATE:-${DEFAULT_DEPLOYMENT_DATE}}"
     name="${DEPLOYMENT_ROOT}/install/${what}/${date}"
-    echo "$(readlink -f ${name})"
+    if [[ -L "${name}" ]]; then
+        echo "$(readlink -f ${name})"
+    else
+        echo "${name}"
+    fi
 }
 
 last_install_dir() {
@@ -244,7 +248,7 @@ install_specs() {
             if [[ "${spec}" = py-* ]]; then
                 spack activate $spec
             fi
-        done <<< ${spec_list}
+        done <<< "${spec_list}"
     fi
 
     mkdir -p "${WORKSPACE:-.}/stacks"

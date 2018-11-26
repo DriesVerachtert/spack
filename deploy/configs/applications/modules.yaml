@@ -1,0 +1,52 @@
+modules:
+
+  enable::
+    - tcl
+    - lmod
+
+  prefix_inspections::
+    bin:
+      - PATH
+    bin64:
+      - PATH
+    share/man:
+      - MANPATH
+    man:
+      - MANPATH
+    lib:
+      - LD_LIBRARY_PATH
+    lib64:
+      - LD_LIBRARY_PATH
+    lib/pkgconfig:
+      - PKG_CONFIG_PATH
+    lib64/pkgconfig:
+      - PKG_CONFIG_PATH
+    '':
+      - CMAKE_PREFIX_PATH
+
+  tcl:
+    hash_length: 0
+    whitelist:
+      - functionalizer
+      - 'neurodamus%intel'
+      - 'neuron+mpi%intel'
+      - parquet-converters
+      - py-bluepymm
+      - py-bluepyopt
+      - py-efel
+      - spykfunc
+      - synapsetool
+      - steps
+      - touchdetector
+    blacklist:
+      - '%gcc'
+      - '%intel'
+      - '%llvm'
+      - '%pgi'
+    naming_scheme: '${PACKAGE}/${VERSION}'
+    all:
+      suffixes:
+        '+knl': knl
+      environment:
+        set:
+          '${PACKAGE}_ROOT': '${PREFIX}'

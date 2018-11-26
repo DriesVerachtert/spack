@@ -86,9 +86,8 @@ packages:
 
   #### cellular ####
 
-  gnu-intel-stable-python-parallel:
+  intel-stable-python-parallel:
     target_matrix:
-      - gnu-stable
       - intel-stable
     requires:
       - architecture
@@ -97,6 +96,7 @@ packages:
       - python
     specs:
       - neurodamus@plasticity
+      - neurodamus@plasticity+coreneuron^coreneuron+knl
       - neurodamus@master~coreneuron
       - neurodamus@hippocampus~coreneuron
       - synapsetool@0.3.2

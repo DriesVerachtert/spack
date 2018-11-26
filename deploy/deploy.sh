@@ -11,34 +11,66 @@ DEFAULT_DEPLOYMENT_ROOT="/gpfs/bbp.cscs.ch/apps/hpc/test/$(whoami)/deployment"
 DEFAULT_DEPLOYMENT_DATA="/gpfs/bbp.cscs.ch/data/project/proj20/pramod_scratch/SPACK_DEPLOYMENT/download"
 DEFAULT_DEPLOYMENT_DATE="$(date +%Y-%m-%d)"
 
-
+# Set variables to default. The user may override the following:
+#
+# * `DEPLOYMENT_ROOT` for the installation directory
+# * `DEPLOYMENT_DATA` containing tarballs of proprietary software
+# * `DEPLOYMENT_DATE` to force a date for the installation directory
+#
+# for the latter, see also the comment of `last_install_dir`
 DEPLOYMENT_DATA=${DEPLOYMENT_DATA:-${DEFAULT_DEPLOYMENT_DATA}}
 DEPLOYMENT_ROOT=${DEPLOYMENT_ROOT:-${DEFAULT_DEPLOYMENT_ROOT}}
 SPACK_MIRROR_DIR="${DEPLOYMENT_ROOT}/mirror"
 export DEPLOYMENT_ROOT SPACK_MIRROR_DIR
 
+# A list of stages in the order they will be built
+stages="compilers tools serial-libraries parallel-libraries applications"
+
+# Definitions for the installation spec generation. For every stage
+# mentioned above, this should be a list of filenames *without* extension
+# found in `packages`.
 declare -A spec_definitions=([compilers]=compilers
                              [tools]=system-tools
-                             [libraries]="parallel-libraries serial-libraries python-packages"
+                             [serial-libraries]="serial-libraries python-packages"
+                             [parallel-libraries]=parallel-libraries
                              [applications]=bbp-packages)
-declare -A spec_parentage=([tools]=compilers
-                           [libraries]=tools
-                           [applications]=libraries)
-stages="compilers tools libraries applications"
+
+# Set up the dependency graph
+declare -A spec_parentage
+last=""
+for stage in $stages; do
+    if [[ -n "$last" ]]; then
+        spec_parentage[$stage]="$last"
+    fi
+    last="$stage"
+done
 
 log() {
     echo "$(tput bold)### $@$(tput sgr0)" >&2
 }
 
 install_dir() {
+    # Create an installation directory based on the environment variables
+    # set.
     what=$1
     date="${DEPLOYMENT_DATE:-${DEFAULT_DEPLOYMENT_DATE}}"
-    echo "${DEPLOYMENT_ROOT}/install/${what}/${date}"
+    name="${DEPLOYMENT_ROOT}/install/${what}/${date}"
+    echo "$(readlink -f ${name})"
 }
 
 last_install_dir() {
+    # Obtain the installation directory of a parental stage, i.e.,
+    # compilers when building tools. Based on some assumptions:
+    #
+    # 1. Attempt to use the globally set `DEPLOYMENT_DATE` or default via
+    #    `install_dir`
+    # 2. Otherwise, use the latest directory present
     what=$1
-    find "${DEPLOYMENT_ROOT}/install/${what}" -mindepth 1 -maxdepth 1 -type d|sort|tail -n1
+    name="$(install_dir ${what})"
+    if [[ ! -d "${name}" ]]; then
+        name=$(find "${DEPLOYMENT_ROOT}/install/${what}" -mindepth 1 -maxdepth 1 -type d|sort|tail -n1)
+    fi
+    echo "$(readlink -f ${name})"
 }
 
 configure_compilers() {
@@ -207,11 +239,13 @@ install_specs() {
     log "running installation for all specs"
     spack install -y --log-format=junit --log-file="${HOME}/stack.xml" $(< "${HOME}/specs.txt")
 
-    while read spec; do
-        if [[ "${spec}" == py-* ]]; then
-            spack activate $spec
-        fi
-    done <<< ${spec_list}
+    if [[ "${what}" = "serial-libraries" ]]; then
+        while read spec; do
+            if [[ "${spec}" = py-* ]]; then
+                spack activate $spec
+            fi
+        done <<< ${spec_list}
+    fi
 
     mkdir -p "${WORKSPACE:-.}/stacks"
     cp "${HOME}/stack.xml" "${WORKSPACE:-.}/stacks/${what}.xml"

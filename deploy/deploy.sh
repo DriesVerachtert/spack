@@ -30,7 +30,7 @@ stages="compilers tools serial-libraries parallel-libraries applications"
 # mentioned above, this should be a list of filenames *without* extension
 # found in `packages`.
 declare -A spec_definitions=([compilers]=compilers
-                             [tools]=system-tools
+                             [tools]=tools
                              [serial-libraries]="serial-libraries python-packages"
                              [parallel-libraries]=parallel-libraries
                              [applications]=bbp-packages)

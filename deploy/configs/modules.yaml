@@ -32,7 +32,7 @@ modules:
       - functionalizer
       - gcc
       - hpctoolkit
-      - hpe-mpi
+      - 'hpe-mpi%gcc'
       - ior
       - imb
       - intel
@@ -41,13 +41,13 @@ modules:
       - likwid
       - llvm
       - mvapich2
-      - neurodamus
+      - 'neurodamus%intel'
       - 'neuron+mpi%intel'
       - openmpi
       - osu-micro-benchmarks
       - parquet-converters
       - pgi
-      - python
+      - 'python%gcc'
       - qt
       - spark
       - spykfunc

@@ -19,6 +19,7 @@ packages:
       - compiler
       - mpi
     specs:
+      - py-mpi4py@3.0.0
       - hdf5+mpi@1.10.3
       - highfive@1.6
       #- matio@1.5.9

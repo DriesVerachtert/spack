@@ -125,14 +125,3 @@ packages:
     # - py-scikit-learn@0.19.1 ^py-numpy@1.15.1 ^py-scipy@1.1.0
     # - py-theano@1.0.2 ^py-numpy@1.15.1 ^py-scipy@1.1.0
     # - py-pytorch@0.4.0 ^py-numpy@1.15.1
-
-  gnu-stable-parallel-python:
-    target_matrix:
-      - gnu-stable
-    requires:
-      - architecture
-      - compiler
-      - mpi
-      - python
-    specs:
-      - py-mpi4py@3.0.0

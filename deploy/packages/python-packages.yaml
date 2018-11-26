@@ -24,7 +24,7 @@ packages:
       - py-babel
       - py-bb5
       - py-beautifulsoup4
-      - py-bokeh
+      # - py-bokeh
       - py-cffi
       - py-click
       - py-clustershell
@@ -38,14 +38,14 @@ packages:
       - py-decorator
       - py-docopt
       - py-efel
-      - py-elasticsearch
-      - py-elephant
-      - py-fastaindex
-      - py-flake8
+      # - py-elasticsearch
+      # - py-elephant
+      # - py-fastaindex
+      # - py-flake8
       - py-funcsigs
       - py-future
       - py-futures
-      - py-gcovr
+      # - py-gcovr
       - py-h5py~mpi
       - py-hdfs
       - py-ipykernel
@@ -65,12 +65,12 @@ packages:
       - py-lxml
       - py-markdown
       - py-matplotlib
-      - py-memory-profiler
-      - py-mpmath
-      - py-multiprocess
-      - py-neo
-      - py-networkx
-      - py-nose
+      # - py-memory-profiler
+      # - py-mpmath
+      # - py-multiprocess
+      # - py-neo
+      # - py-networkx
+      # - py-nose
       - py-pandas
       - py-perf
       - py-pillow
@@ -79,7 +79,7 @@ packages:
       - py-progress
       - py-py4j
       - py-pyarrow
-      - py-pynn
+      # - py-pynn
       - py-pyspark
       - py-pytest
       - py-pyyaml
@@ -88,27 +88,27 @@ packages:
       - py-seaborn
       - py-setuptools
       - py-setuptools-scm
-      - py-sh
-      - py-shapely
+      # - py-sh
+      # - py-shapely
       - py-simplejson
       - py-six
-      - py-slurm-pipeline
+      # - py-slurm-pipeline
       - py-sparkmanager
-      - py-sphinx
-      - py-sphinx-bootstrap-theme
-      - py-sphinx-rtd-theme
-      - py-sqlalchemy
-      - py-symengine
-      - py-sympy
-      - py-toml
-      - py-tornado
+      # - py-sphinx
+      # - py-sphinx-bootstrap-theme
+      # - py-sphinx-rtd-theme
+      # - py-sqlalchemy
+      # - py-symengine
+      # - py-sympy
+      # - py-toml
+      # - py-tornado
       - py-urllib3
       - py-virtualenv
       - py-virtualenv-clone
       - py-virtualenvwrapper
       - py-wheel
-      - py-yapf
-      - py-zmq
+      # - py-yapf
+      # - py-zmq
 
   gnu-stable-serial-lapack:
     target_matrix:

@@ -7,6 +7,10 @@ pipeline {
         timestamps()
     }
 
+    parameters {
+        string(defaultValue: "latest", description: 'date to use when deploying.', name: 'DEPLOYMENT_DATE')
+    }
+
     environment {
         DEPLOYMENT_ROOT = "/gpfs/bbp.cscs.ch/apps/hpc/test/jenkins/deployment"
         BASEDIR = "${DEPLOYMENT_ROOT}/deploy/spack/deploy"
@@ -15,6 +19,8 @@ pipeline {
 
     stages {
         stage('Setup') {
+            // General setup: make sure that Spack is installed and that
+            // license files are available to Spack
             steps {
                 dir("${DEPLOYMENT_ROOT}/deploy/spack") {
                     git(url: "https://github.com/BlueBrain/spack.git", branch: "deploy/test")
@@ -24,6 +30,18 @@ pipeline {
                 }
             }
         }
+
+        // stage('Archival') {
+        //     // When tagging a new release, reset the symlinks pointing to
+        //     // the last release
+        //     when {
+        //         tag pattern: "release-\\d+", comparator: "REGEXP"
+        //     }
+
+        //     steps {
+        //         sh "ls"
+        //     }
+        // }
 
         stage('Compilers') {
             steps {
@@ -97,12 +115,6 @@ pipeline {
                     archiveArtifacts artifacts: "stacks/applications.xml"
                     junit testResults: "stacks/applications.xml", allowEmptyResults: true
                 }
-            }
-        }
-
-        stage('Deployment') {
-            steps {
-                sh "ls"
             }
         }
     }

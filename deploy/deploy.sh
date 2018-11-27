@@ -49,12 +49,42 @@ log() {
     echo "$(tput bold)### $@$(tput sgr0)" >&2
 }
 
-install_dir() {
-    # Create an installation directory based on the environment variables
-    # set.
+install_dir_name() {
+    # Create an installation directory name based on the environment
+    # variables set.
     what=$1
     date="${DEPLOYMENT_DATE:-${DEFAULT_DEPLOYMENT_DATE}}"
     name="${DEPLOYMENT_ROOT}/install/${what}/${date}"
+    if [[ -L "${name}" ]]; then
+        echo "$(readlink -f ${name})"
+    else
+        echo "${name}"
+    fi
+}
+
+install_dir() {
+    # Create an installation directory based on the environment variables
+    # set.
+    #
+    # When DEPLOYMENT_DATE is set to "latest" and the corresponding symlink
+    # does not resolve/is not existing, find the last installation
+    # directory and symlink it to "latest".
+    what=$1
+    date="${DEPLOYMENT_DATE:-${DEFAULT_DEPLOYMENT_DATE}}"
+    name="$(install_dir_name ${what})"
+    if [[ ! -e "${name}" && "${date}" = "latest" ]]; then
+        log "creating symlink for ${date}"
+        target=$(last_install_dir ${what})
+        if [[ ! -d "${target}" ]]; then
+            target="$(env DEPLOYMENT_DATE=${DEFAULT_DEPLOYMENT_DATE} install_dir_name)"
+            log "...creating ${target}"
+            log mkdir -p "${target}"
+        fi
+        log "...from ${target}"
+        log "...to   ${name}"
+        log ln -sf "${target}" "${name}"
+    fi
+
     if [[ -L "${name}" ]]; then
         echo "$(readlink -f ${name})"
     else
@@ -70,7 +100,7 @@ last_install_dir() {
     #    `install_dir`
     # 2. Otherwise, use the latest directory present
     what=$1
-    name="$(install_dir ${what})"
+    name="$(install_dir_name ${what})"
     if [[ ! -d "${name}" ]]; then
         name=$(find "${DEPLOYMENT_ROOT}/install/${what}" -mindepth 1 -maxdepth 1 -type d|sort|tail -n1)
     fi
@@ -256,7 +286,7 @@ install_specs() {
 
     spack module tcl refresh -y
     . ${DEPLOYMENT_ROOT}/deploy/spack/share/spack/setup-env.sh
-    spack export --scope=user --explicit > "${HOME}/packages.yaml"
+    spack export --scope=user --module tcl --explicit > "${HOME}/packages.yaml"
 
     if [[ "${what}" = "compilers" ]]; then
         cp configs/packages.yaml ${HOME}/packages.yaml

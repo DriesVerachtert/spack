@@ -8,7 +8,7 @@ pipeline {
     }
 
     parameters {
-        string(defaultValue: "latest", description: 'date to use when deploying.', name: 'DEPLOYMENT_DATE')
+        string(defaultValue: "latest", description: 'date to use when deploying, in YYYY-MM-DD format, or "latest".', name: 'DEPLOYMENT_DATE')
     }
 
     environment {
@@ -88,7 +88,7 @@ pipeline {
             }
         }
 
-        stage('parallel Libraries') {
+        stage('Parallel Libraries') {
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh parallel-libraries"

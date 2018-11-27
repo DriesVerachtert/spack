@@ -37,7 +37,6 @@ packages:
       - py-deap
       - py-decorator
       - py-docopt
-      - py-efel
       # - py-elasticsearch
       # - py-elephant
       # - py-fastaindex

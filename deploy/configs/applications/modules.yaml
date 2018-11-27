@@ -2,7 +2,6 @@ modules:
 
   enable::
     - tcl
-    - lmod
 
   prefix_inspections::
     bin:
@@ -44,6 +43,8 @@ modules:
       - '%llvm'
       - '%pgi'
     naming_scheme: '${PACKAGE}/${VERSION}'
+    ^python:
+      autoload: 'direct'
     all:
       suffixes:
         '^coreneuron+knl': knl

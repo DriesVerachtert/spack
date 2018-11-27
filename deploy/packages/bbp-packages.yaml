@@ -77,7 +77,7 @@ packages:
     requires:
       - architecture
       - compiler
-      - lapack
+      # - lapack
       - python
     specs:
       - py-bluepymm@0.6.38 ^neuron~mpi

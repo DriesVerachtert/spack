@@ -8,7 +8,12 @@ pipeline {
     }
 
     parameters {
-        string(defaultValue: "latest", description: 'date to use when deploying, in YYYY-MM-DD format, or "latest".', name: 'DEPLOYMENT_DATE')
+        string(name: 'DEPLOYMENT_DATE', defaultValue: 'latest', description: 'date to use when deploying, in YYYY-MM-DD format, or "latest".')
+        booleanParam(name: 'build_compilers', defaultValue: true, description: 'Build compilers')
+        booleanParam(name: 'build_tools', defaultValue: true, description: 'Build system tools')
+        booleanParam(name: 'build_serial_libraries', defaultValue: true, description: 'Build serial libraries')
+        booleanParam(name: 'build_parallel_libraries', defaultValue: true, description: 'Build parallel libraries')
+        booleanParam(name: 'build_applications', defaultValue: true, description: 'Build BBP specific applications')
     }
 
     environment {
@@ -44,6 +49,10 @@ pipeline {
         // }
 
         stage('Compilers') {
+            when {
+                build_compilers
+            }
+
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh compilers"
@@ -59,6 +68,10 @@ pipeline {
         }
 
         stage('Tools') {
+            when {
+                build_tools
+            }
+
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh tools"
@@ -74,6 +87,10 @@ pipeline {
         }
 
         stage('Serial Libraries') {
+            when {
+                build_serial_libraries
+            }
+
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh serial-libraries"
@@ -89,6 +106,10 @@ pipeline {
         }
 
         stage('Parallel Libraries') {
+            when {
+                build_parallel_libraries
+            }
+
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh parallel-libraries"
@@ -104,6 +125,10 @@ pipeline {
         }
 
         stage('Applications') {
+            when {
+                build_applications
+            }
+
             steps {
                 dir("${BASEDIR}") {
                     sh "./deploy.sh applications"

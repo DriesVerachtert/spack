@@ -50,7 +50,7 @@ pipeline {
 
         stage('Compilers') {
             when {
-                build_compilers
+                params.build_compilers
             }
 
             steps {
@@ -69,7 +69,7 @@ pipeline {
 
         stage('Tools') {
             when {
-                build_tools
+                params.build_tools
             }
 
             steps {
@@ -88,7 +88,7 @@ pipeline {
 
         stage('Serial Libraries') {
             when {
-                build_serial_libraries
+                params.build_serial_libraries
             }
 
             steps {
@@ -107,7 +107,7 @@ pipeline {
 
         stage('Parallel Libraries') {
             when {
-                build_parallel_libraries
+                params.build_parallel_libraries
             }
 
             steps {
@@ -126,7 +126,7 @@ pipeline {
 
         stage('Applications') {
             when {
-                build_applications
+                params.build_applications
             }
 
             steps {
